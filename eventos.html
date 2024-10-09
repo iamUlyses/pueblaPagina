@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio - Lugares Turísticos de Puebla</title>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+    <header class="bg-dark text-white p-3">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+                <img src="img/logo.png" alt="Logo" class="logo">
+            </div>
+            <nav>
+                <ul class="nav">
+                    <li class="nav-item"><a class="nav-link text-white" href="index.html">Inicio</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categorías</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="cultural.html">Cultural</a></li>
+                            <li><a class="dropdown-item" href="social.html">Social</a></li>
+                            <li><a class="dropdown-item" href="naturaleza.html">Naturaleza</a></li>
+                            <li><a class="dropdown-item" href="deportes.html">Deportes</a></li>
+                            <li><a class="dropdown-item" href="gastronomico.html">Gastronómico</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link text-white" href="eventos.html">Calendario de Eventos</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="destinos.html">Destinos Destacados</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="blog.html">Blog y Noticias</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <style>
+        body {
+            background-color: #f0f8ff;
+            font-family: Arial, sans-serif;
+        }
+        .calendar-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px;
+        }
+        .month {
+            background-color: white;
+            border: 2px solid #007bff; 
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            padding: 10px;
+            width: 300px;
+        }
+        .month-name {
+            font-size: 1.5em;
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        .days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+        }
+        .day {
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            border: 1px solid #007bff; 
+            border-radius: 5px;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        .day:hover {
+            transform: scale(1.1);
+            background-color: #e7f0ff; 
+        }
+        .event-container {
+            position: absolute;
+            background-color: white;
+            border: 1px solid #007bff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            z-index: 100;
+            display: none; 
+        }
+        .show {
+            display: block;
+        }
+        .event-image {
+            width: 50px; 
+            height: auto; 
+            margin-right: 10px; 
+            vertical-align: middle; 
+        }
+        .event-details {
+            display: flex;
+            align-items: center; 
+        }
+    </style>
+    <title>Calendario de Eventos</title>
+</head>
+<body>
+    <div class="calendar-container">
+        <div class="month" id="month-1">
+            <div class="month-name">Enero</div>
+            <div class="days">
+                <div class="day" onclick="showEvents('1-1')">1</div>
+                <div class="day" onclick="showEvents('1-5')">5</div>
+                <div class="day" onclick="showEvents('1-6')">6</div>
+                <div class="day" onclick="showEvents('1-15')">15</div>
+                <div class="day" onclick="showEvents('1-20')">20</div>
+                <div class="day" onclick="showEvents('1-30')">30</div>
+            </div>
+            <div id="event-container-1" class="event-container"></div>
+        </div>
+        <div class="month" id="month-2">
+            <div class="month-name">Febrero</div>
+            <div class="days">
+                <div class="day" onclick="showEvents('2-2')">2</div>
+                <div class="day" onclick="showEvents('2-14')">14</div>
+                <div class="day" onclick="showEvents('2-24')">24</div>
+                <div class="day" onclick="showEvents('2-28')">28</div>
+                <div class="day" onclick="showEvents('2-29')">29</div>
+            </div>
+            <div id="event-container-2" class="event-container"></div>
+        </div>
+        <div class="month" id="month-3">
+            <div class="month-name">Marzo</div>
+            <div class="days">
+                <div class="day" onclick="showEvents('3-8')">8</div>
+                <div class="day" onclick="showEvents('3-21')">21</div>
+                <div class="day" onclick="showEvents('3-31')">31</div>
+                <div class="day" onclick="showEvents('3-15')">15</div>
+            </div>
+            <div id="event-container-3" class="event-container"></div>
+        </div>
+        <div class="month" id="month-4">
+            <div class="month-name">Abril</div>
+            <div class="days">
+                <div class="day" onclick="showEvents('4-1')">1</div>
+                <div class="day" onclick="showEvents('4-22')">22</div>
+                <div class="day" onclick="showEvents('4-30')">30</div>
+                <div class="day" onclick="showEvents('4-25')">25</div>
+            </div>
+            <div id="event-container-4" class="event-container"></div>
+        </div>
+        <div class="month" id="month-5">
+            <div class="month-name">Mayo</div>
+            <div class="days">
+                <div class="day" onclick="showEvents('5-5')">5</div>
+                <div class="day" onclick="showEvents('5-10')">10</div>
+                <div class="day" onclick="showEvents('5-15')">15</div>
+                <div class="day" onclick="showEvents('5-20')">20</div>
+                <div class="day" onclick="showEvents('5-30')">30</div>
+            </div>
+            <div id="event-container-5" class="event-container"></div>
+        </div>
+        <div class="month" id="month-6">
+            <div class="month-name">Junio</div>
+            <div class="days">
+                <div class="day" onclick="showEvents('6-1')">1</div>
+                <div class="day" onclick="showEvents('6-15')">15</div>
+                <div class="day" onclick="showEvents('6-30')">30</div>
+                <div class="day" onclick="showEvents('6-10')">10</div>
+            </div>
+            <div id="event-container-6" class="event-container"></div>
+        </div>
+        <div class="month" id="month-7">
+            <div class="month-name">Julio</div>
+            <div class="days">
+                <div class="day" onclick="showEvents('7-1')">1</div>
+                <div class="day" onclick="showEvents('7-15')">15</div>
+                <div class="day" onclick="showEvents('7-30')">30</div>
+            </div>
+            <div id="event-container-7" class="event-container"></div>
+        </div>
+        <div class="month" id="month-8">
+            <div class="month-name">Agosto</div>
+            <div class="days">
+                <div class="day" onclick="showEvents('8-1')">1</div>
+                <div class="day" onclick="showEvents('8-15')">15</div>
+                <div class="day" onclick="showEvents('8-30')">30</div>
+            </div>
+            <div id="event-container-8" class="event-container"></div>
+        </div>
+        <div class="month" id="month-9">
+            <div class="month-name">Septiembre</div>
+            <div class="days">
+                <div class="day" onclick="showEvents('9-1')">1</div>
+                <div class="day" onclick="showEvents('9-15')">15</div>
+                <div class="day" onclick="showEvents('9-30')">30</div>
+            </div>
+            <div id="event-container-9" class="event-container"></div>
+        </div>
+        <div class="month" id="month-10">
+            <div class="month-name">Octubre</div>
+            <div class="days">
+                <div class="day" onclick="showEvents('10-1')">1</div>
+                <div class="day" onclick="showEvents('10-15')">15</div>
+                <div class="day" onclick="showEvents('10-31')">31</div>
+            </div>
+            <div id="event-container-10" class="event-container"></div>
+        </div>
+        <div class="month" id="month-11">
+            <div class="month-name">Noviembre</div>
+            <div class="days">
+                <div class="day" onclick="showEvents('11-1')">1</div>
+                <div class="day" onclick="showEvents('11-15')">15</div>
+                <div class="day" onclick="showEvents('11-30')">30</div>
+            </div>
+            <div id="event-container-11" class="event-container"></div>
+        </div>
+        <div class="month" id="month-12">
+            <div class="month-name">Diciembre</div>
+            <div class="days">
+                <div class="day" onclick="showEvents('12-1')">1</div>
+                <div class="day" onclick="showEvents('12-15')">15</div>
+                <div class="day" onclick="showEvents('12-31')">31</div>
+            </div>
+            <div id="event-container-12" class="event-container"></div>
+        </div>
+    </div>
+
+    <script>
+        function showEvents(date) {
+            const eventContainerId = `event-container-${date.split('-')[0]}`;
+            const eventContainer = document.getElementById(eventContainerId);
+            eventContainer.classList.toggle('show');
+
+            const events = {
+                '1-1': '<div class="event-details">¡Feliz Año Nuevo!</div>',
+                '1-5': '<div class="event-details">Día de Reyes</div>',
+                '1-6': '<div class="event-details">Celebración de Reyes</div>',
+                '1-15': '<div class="event-details">Inicio de Clases</div>',
+                '1-20': '<div class="event-details">Aniversario de la Ciudad</div>',
+                '1-30': '<div class="event-details">Día de la Paz</div>',
+                '2-2': '<div class="event-details">Día de la Candelaria</div>',
+                '2-14': '<div class="event-details">Día de San Valentín</div>',
+                '2-24': '<div class="event-details">Día de la Bandera</div>',
+                '2-28': '<div class="event-details">Carnaval</div>',
+                '2-29': '<div class="event-details">Año Bisiesto</div>',
+                '3-8': '<div class="event-details">Día Internacional de la Mujer</div>',
+                '3-21': '<div class="event-details">Equinoccio de Primavera</div>',
+                '3-31': '<div class="event-details">Día de la Tierra</div>',
+                '3-15': '<div class="event-details">Inicio de la Primavera</div>',
+                '4-1': '<div class="event-details">Día de los Inocentes</div>',
+                '4-22': '<div class="event-details">Día de la Tierra</div>',
+                '4-30': '<div class="event-details">Día del Niño</div>',
+                '4-25': '<div class="event-details">Día de la Educación</div>',
+                '5-5': '<div class="event-details">Día de la Batalla de Puebla</div>',
+                '5-10': '<div class="event-details">Día de las Madres</div>',
+                '5-15': '<div class="event-details">Día del Maestro</div>',
+                '5-20': '<div class="event-details">Día del Trabajo</div>',
+                '5-30': '<div class="event-details">Día de la Marina</div>',
+                '6-1': '<div class="event-details">Día de la Infancia</div>',
+                '6-15': '<div class="event-details">Día del Padre</div>',
+                '6-30': '<div class="event-details">Día de la Independencia</div>',
+                '6-10': '<div class="event-details">Día de la Marina</div>',
+                '7-1': '<div class="event-details">Día de la Amistad</div>',
+                '7-15': '<div class="event-details">Día de los Abuelos</div>',
+                '7-30': '<div class="event-details">Día del Niño</div>',
+                '8-1': '<div class="event-details">Día del Abuelo</div>',
+                '8-15': '<div class="event-details">>Día de la Juventud</div>',
+                '8-30': '<div class="event-details">Día del Trabajo</div>',
+                '9-1': '<div class="event-details">Día de la Independencia</div>',
+                '9-15': '<div class="event-details">Día de la Resistencia</div>',
+                '9-30': '<div class="event-details">Día de la Paz</div>',
+                '10-1': '<div class="event-details">Día de Todos los Santos</div>',
+                '10-15': '<div class="event-details">Día de la Raza</div>',
+                '10-31': '<div class="event-details">Día de Muertos</div>',
+                '11-1': '<div class="event-details">Día de Muertos</div>',
+                '11-15': '<div class="event-details">Día del Empleado</div>',
+                '11-30': '<div class="event-details">Día Internacional de la Ciudad</div>',
+                '12-1': '<div class="event-details">Día de la Revolución</div>',
+                '12-15': '<div class="event-details">Día de la Virgen</div>',
+                '12-31': '<div class="event-details">Fin de Año</div>',
+            };
+
+            eventContainer.innerHTML = events[date] || '';
+        }
+
+    </script>
+
+    <footer class="bg-dark text-white mt-5 p-4 text-center">
+        <div class="container d-flex justify-content-between align-items-center">
+            <img src="img/logo2.png" alt="Footer Logo" class="footer-logo">
+            <p>Contacto: yosoypuebla@gmail.com | Síguenos en 
+                <a href="https://www.facebook.com/Pueblaa" class="text-white">Facebook</a>, 
+                <a href="https://x.com/Gob_Puebla" class="text-white">Twitter</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="scripts.js"></script>
+</body>
+</html>

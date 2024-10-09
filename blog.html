@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio - Lugares Turísticos de Puebla</title>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+    <header class="bg-dark text-white p-3">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+                <img src="img/logo.png" alt="Logo" class="logo">
+            </div>
+            <nav>
+                <ul class="nav">
+                    <li class="nav-item"><a class="nav-link text-white" href="index.html">Inicio</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link text-white dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categorías</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="cultural.html">Cultural</a></li>
+                            <li><a class="dropdown-item" href="social.html">Social</a></li>
+                            <li><a class="dropdown-item" href="naturaleza.html">Naturaleza</a></li>
+                            <li><a class="dropdown-item" href="deportes.html">Deportes</a></li>
+                            <li><a class="dropdown-item" href="gastronomico.html">Gastronómico</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link text-white" href="eventos.html">Calendario de Eventos</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="destinos.html">Destinos Destacados</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="blog.html">Blog y Noticias</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mt-5">
+        <h2 class="mb-4">Blog y Noticias de Puebla</h2>
+    
+        <section>
+            <h3 class="mb-3">Escribe tu publicación</h3>
+            <form id="form-publicacion">
+                <div class="mb-3">
+                    <label for="tipo" class="form-label">Tipo de publicación:</label>
+                    <select class="form-select" id="tipo" required>
+                        <option value="noticia">Noticia</option>
+                        <option value="comentario">Comentario</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="imagen" class="form-label">Sube una imagen:</label>
+                    <input type="file" class="form-control" id="imagen" accept="image/*" required>
+                </div>
+                <div class="mb-3">
+                    <label for="texto" class="form-label">Escribe tu publicación:</label>
+                    <textarea class="form-control" id="texto" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Publicar</button>
+            </form>
+        </section>
+    
+        <h3 class="mt-5">Publicaciones Recientes</h3>
+        <div id="publicaciones" class="row"></div>
+    </main>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const formPublicacion = document.getElementById('form-publicacion');
+            const publicacionesDiv = document.getElementById('publicaciones');
+        
+            let publicaciones = JSON.parse(localStorage.getItem('publicaciones')) || [];
+            mostrarPublicaciones();
+        
+            formPublicacion.addEventListener('submit', function (e) {
+                e.preventDefault();
+        
+                const tipo = document.getElementById('tipo').value;
+                const imagenInput = document.getElementById('imagen');
+                const texto = document.getElementById('texto').value;
+        
+                const reader = new FileReader();
+                reader.onload = function () {
+                    const nuevaPublicacion = {
+                        tipo: tipo,
+                        imagen: reader.result,
+                        texto: texto,
+                        fecha: new Date().toLocaleDateString()
+                    };
+        
+                    publicaciones.push(nuevaPublicacion);
+                    localStorage.setItem('publicaciones', JSON.stringify(publicaciones));
+        
+                    mostrarPublicaciones();
+                    formPublicacion.reset();
+                };
+        
+                reader.readAsDataURL(imagenInput.files[0]);
+            });
+        
+            function mostrarPublicaciones() {
+                publicacionesDiv.innerHTML = '';
+                publicaciones.forEach((publicacion, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'col-md-6';
+                    card.innerHTML = `
+                        <div class="card mb-4">
+                            <img src="${publicacion.imagen}" class="card-img-top" alt="Publicación ${index + 1}">
+                            <div class="card-body">
+                                <h5 class="card-title">${publicacion.tipo.charAt(0).toUpperCase() + publicacion.tipo.slice(1)}</h5>
+                                <p class="card-text">${publicacion.texto}</p>
+                                <p class="text-muted">Publicado el: ${publicacion.fecha}</p>
+                            </div>
+                        </div>`;
+                    publicacionesDiv.appendChild(card);
+                });
+            }
+        });
+    </script>        
+
+    <footer class="bg-dark text-white mt-5 p-4 text-center">
+        <div class="container d-flex justify-content-between align-items-center">
+            <img src="img/logo2.png" alt="Footer Logo" class="footer-logo">
+            <p>Contacto: yosoypuebla@gmail.com | Síguenos en 
+                <a href="https://www.facebook.com/Pueblaa" class="text-white">Facebook</a>, 
+                <a href="https://x.com/Gob_Puebla" class="text-white">Twitter</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="scripts.js"></script>
+</body>
+</html>
+
